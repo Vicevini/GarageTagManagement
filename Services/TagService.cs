@@ -38,8 +38,6 @@ namespace GarageTagManagement.Services
             _tagRepository.Add(tag);
         }
 
-
-
         public void Update(Tag tag)
         {
             _tagRepository.Update(tag);
@@ -54,5 +52,36 @@ namespace GarageTagManagement.Services
         {
             return tag.ValidadeTag >= DateTime.Now;
         }
+
+
+        public bool IsTagValidById(int id)
+        {
+            var tag = _tagRepository.GetById(id);
+            return IsTagValid(tag);
+        }
+
+        public bool IsTagValidByApartment(string id)
+        {
+            var tag = _tagRepository.GetByApartment(id);
+            return IsTagValid(tag);
+        }
+
+        public void ToggleIsActive(int id)
+        {
+            var tag = _tagRepository.GetById(id);
+            tag.IsActive = !tag.IsActive;
+            _tagRepository.Update(tag);
+        }
+
+        public void ToggleValidade(int id, int hours)
+        {
+            var tag = _tagRepository.GetById(id);
+            if (tag.ValidadeTag.HasValue)
+            {
+                tag.ValidadeTag = tag.ValidadeTag.Value.AddHours(hours);
+            }
+            _tagRepository.Update(tag);
+        }
+
     }
 }
