@@ -22,7 +22,7 @@ namespace GarageTagManagement.Models
         public string? TipoTag { get; set; }
 
         [Required]
-        public DateTime? ValidadeTag { get; set; }
+        public DateTime? ValidadeTag { get; set; } 
 
         [Required]
         public bool IsActive { get; set; }

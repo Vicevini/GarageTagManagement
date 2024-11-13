@@ -82,7 +82,8 @@ namespace GarageTagManagement.Controllers
 
             tag.Id = id; // Garante que o ID da tag seja o mesmo do parâmetro
             _tagService.Update(tag);
-            return NoContent(); // Retorna 204 sem conteúdo
+
+            return Ok(tag); // Retorna a tag atualizada com status 200 OK
         }
 
         // DELETE: api/tags/{id}

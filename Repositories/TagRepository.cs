@@ -53,7 +53,6 @@ namespace GarageTagManagement.Repositories
         {
             tag.Id = _tags.Any() ? _tags.Max(t => t.Id) + 1 : 1;
             _tags.Add(tag);
-            Console.WriteLine($"Tag adicionada: {tag.IdApartamento} com ID {tag.Id}");
         }
 
         public void Update(Tag tag)

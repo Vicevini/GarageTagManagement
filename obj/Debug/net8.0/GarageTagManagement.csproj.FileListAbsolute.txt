@@ -31,3 +31,4 @@ C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Deb
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.pdb
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.genruntimeconfig.cache
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\ref\GarageTagManagement.dll
+C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.sourcelink.json

@@ -11,6 +11,7 @@ namespace GarageTagManagement.Services
     public class TagService(TagRepository tagRepository)
     {
         private readonly TagRepository _tagRepository = tagRepository;
+        private readonly List<Tag> _tags = new List<Tag>();
 
         public IEnumerable<Tag> GetAll()
         {
@@ -29,8 +30,15 @@ namespace GarageTagManagement.Services
 
         public void Add(Tag tag)
         {
+            if (tag.ValidadeTag == null)
+            {
+                tag.ValidadeTag = DateTime.Now.AddYears(1);
+            }
+
             _tagRepository.Add(tag);
         }
+
+
 
         public void Update(Tag tag)
         {

@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Registrando o serviço e o repositório para o gerenciamento de tags
-builder.Services.AddScoped<TagService, TagService>();
-builder.Services.AddScoped<TagRepository, TagRepository>();
+// Registrando o repositório como Singleton e o serviço como Scoped
+builder.Services.AddSingleton<TagRepository>();  // Repositório em memória para manter estado entre requisições
+builder.Services.AddScoped<TagService>();        // Serviço com ciclo de vida Scoped
 
 // Adicionando suporte para controladores
 builder.Services.AddControllers();
@@ -17,6 +17,7 @@ builder.Services.AddControllers();
 // Construindo a aplicação
 var app = builder.Build();
 
+// Middleware de logging para cada requisição
 app.Use(async (context, next) =>
 {
     Console.WriteLine($"[{context.Request.Method} {context.Request.Path} {DateTime.UtcNow}] Started ");
@@ -31,10 +32,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Desativando redirecionamento HTTPS para evitar erro de porta (opcional)
+// Desativando redirecionamento HTTPS (opcional)
 app.UseHttpsRedirection();
 
 // Mapeando as rotas da API
 app.MapControllers();
 
+// Executando a aplicação
 app.Run();
