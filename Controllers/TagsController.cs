@@ -23,7 +23,7 @@ namespace GarageTagManagement.Controllers
             var tags = _tagService.GetAll();
             if (tags == null || tags.Count() == 0)
             {
-                return NoContent(); // Retorna 204 se não houver tags
+                return NoContent(); 
             }
             return Ok(tags);
         }
@@ -35,9 +35,9 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetById(id);
             if (tag == null)
             {
-                return NotFound(); // Retorna 404 se a tag não for encontrada
+                return NotFound(); 
             }
-            return Ok(tag); // Retorna a tag com 200 OK
+            return Ok(tag); 
         }
 
         // GET: api/tags/apto/{idApartamento}
@@ -47,9 +47,9 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetByApartment(idApartamento);
             if (tag == null)
             {
-                return NotFound(); // Retorna 404 se não encontrar a tag
+                return NotFound(); 
             }
-            return Ok(tag); // Retorna a tag com 200 OK
+            return Ok(tag); 
         }
 
         // POST: api/tags
@@ -58,11 +58,11 @@ namespace GarageTagManagement.Controllers
         {
             if (tag == null)
             {
-                return BadRequest("Tag não pode ser nula."); // Verifica se a tag é válida
+                return BadRequest("Tag não pode ser nula."); 
             }
 
             _tagService.Add(tag);
-            return CreatedAtAction(nameof(Get), new { id = tag.Id }, tag); // Retorna 201 com a localização da tag criada
+            return CreatedAtAction(nameof(Get), new { id = tag.Id }, tag); 
         }
 
         // PUT: api/tags/{id}
@@ -71,19 +71,19 @@ namespace GarageTagManagement.Controllers
         {
             if (tag == null)
             {
-                return BadRequest("Tag não pode ser nula."); // Verifica se a tag é válida
+                return BadRequest("Tag não pode ser nula."); 
             }
 
             var existingTag = _tagService.GetById(id);
             if (existingTag == null)
             {
-                return NotFound(); // Retorna 404 se não encontrar a tag
+                return NotFound(); 
             }
 
-            tag.Id = id; // Garante que o ID da tag seja o mesmo do parâmetro
+            tag.Id = id; 
             _tagService.Update(tag);
 
-            return Ok(tag); // Retorna a tag atualizada com status 200 OK
+            return Ok(tag); 
         }
 
         // DELETE: api/tags/{id}
@@ -93,11 +93,72 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetById(id);
             if (tag == null)
             {
-                return NotFound(); // Retorna 404 se a tag não for encontrada
+                return NotFound();
             }
 
             _tagService.Delete(id);
-            return NoContent(); // Retorna 204 sem conteúdo
+            return NoContent(); 
+        }
+
+        // PUT: api/tags/{id}/toggle
+        [HttpPut("{id}/toggle")]
+        public IActionResult ToggleIsActive(int id)
+        {
+            var tag = _tagService.GetById(id);
+            if (tag == null)
+            {
+                return NotFound(); 
+            }
+
+            tag.IsActive = !tag.IsActive;
+            _tagService.Update(tag);
+
+            return Ok(tag); 
+        }
+
+        // GET: api/tags/{id}/isValid
+        [HttpGet("{id}/isValid")]
+        public IActionResult IsTagValid(int id)
+        {
+            var tag = _tagService.GetById(id);
+            if (tag == null)
+            {
+                return NotFound(); 
+            }
+
+            return Ok(_tagService.IsTagValid(tag)); 
+        }
+
+        // GET: api/tags/apto/{idApartamento}/isValid
+        [HttpGet("apto/{idApartamento}/isValid")]
+        public IActionResult IsTagValidByApartment(string idApartamento)
+        {
+            var tag = _tagService.GetByApartment(idApartamento);
+            if (tag == null)
+            {
+                return NotFound(); 
+            }
+
+            return Ok(_tagService.IsTagValid(tag)); 
+        }
+
+        // PUT: api/tags/{id}/toggleValid 
+        [HttpPut("{id}/toggleValid")]
+        public IActionResult ToggleValid(int id)
+        {
+            var tag = _tagService.GetById(id);
+            if (tag == null)
+            {
+                return NotFound(); 
+            }
+
+            if (tag.ValidadeTag.HasValue)
+            {
+                tag.ValidadeTag = tag.ValidadeTag.Value.AddYears(1);
+            }
+            _tagService.Update(tag);
+
+            return Ok(tag); 
         }
     }
 }

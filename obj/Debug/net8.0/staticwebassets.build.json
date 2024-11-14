@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "A0k4CR22LAESlERftboWP9/BOjJz4Ie9PbC54Wo8eFs=",
+  "Hash": "jP0DRs6zIO2B36MLtlH7q6K8MnKeE2GxAvSp+oD0M8E=",
   "Source": "GarageTagManagement",
   "BasePath": "_content/GarageTagManagement",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

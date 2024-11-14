@@ -32,3 +32,6 @@ C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Deb
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.genruntimeconfig.cache
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\ref\GarageTagManagement.dll
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.sourcelink.json
+C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\bin\Debug\net8.0\GarageTagManagement.staticwebassets.endpoints.json
+C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\staticwebassets\msbuild.GarageTagManagement.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
