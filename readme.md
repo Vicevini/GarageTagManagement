@@ -105,3 +105,33 @@ O controlador `TagsController` oferece diversas operações para o gerenciamento
 - **Linguagem:** C#
 - **Framework:** ASP.NET Core
 - **Documentação:** Swagger
+- - **Mensageria:** RabbitMQ
+
+## Eventos
+
+- **Evento:** `NewApartmentRegistered`
+- **Descrição:** Disparado quando um novo apartamento é registrado no sistema.
+
+- **Evento:** `NewTagCreated`
+- **Descrição:** Disparado quando uma tag é ativada. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `NewTagVisitorCreated`
+- **Descrição:** Disparado quando uma tag de visitante é ativada. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `TagDeactivated`
+- **Descrição:** Disparado quando uma tag é desativada. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `TagVisitorDeactivated`
+- **Descrição:** Disparado quando uma tag de visitante é desativada. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `TagValidityExtended`
+- **Descrição:** Disparado quando a validade de uma tag é estendida. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `TagValidityExtendedVisitor`
+- **Descrição:** Disparado quando a validade de uma tag de visitante é estendida. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `TagValidityExpired`
+- **Descrição:** Disparado quando a validade de uma tag expira. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `TagValidityExpiredVisitor`
+- **Descrição:** Disparado quando a validade de uma tag de visitante expira. Mensagens diferentes para síndicos e moradores.
