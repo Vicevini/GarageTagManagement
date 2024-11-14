@@ -1,61 +1,107 @@
-# Sistema de gerenciamento de tags de garagem.
+# GarageTagManagement API
 
-Objetivo: Facilitar o controle e distribuição de tag de garagens para moradores e visitantes do condomínio.
+## Objetivo
 
-Regra: Cada apartamento tem direito à duas tags de garagem. Duas somente em caso de moradores; Caso tenha só uma ativa ou nenhuma, a "reserva" pode ser concedida a um visitante por um período de 48 horas;
+O objetivo do sistema **GarageTagManagement** é facilitar o controle e a distribuição de tags de garagem para moradores e visitantes de um condomínio, permitindo um gerenciamento mais eficiente do uso das vagas de estacionamento.
 
-Ideia de banco de dados
+## Regras de Uso das Tags de Garagem
 
-id | id_apartamento | tags_ativas | tipo_tag (morador ou visita) | validade_tag (caso visitante deve contar 48 horas) | is_active
+1. **Direitos de Uso:**
 
-pode armazenar o banco em memória.
+   - Cada apartamento possui o direito a duas tags de garagem.
+   - O uso de duas tags simultâneas é permitido apenas para **moradores**.
 
-rotas:
+2. **Reserva para Visitantes:**
+   - Se apenas uma tag estiver ativa, ou se nenhuma das tags estiver em uso, a segunda tag (reserva) pode ser concedida a um visitante.
+   - A validade da tag de visitante é limitada a um período de **48 horas**.
 
-get all tags
-get tag by id
-get tag by apto
-update tag is_active (verdadeiro ou falso)
-delete tag
-create tag
-update tag tipo_tag
+## Endpoints da API
 
-duas torres tendo 10 apartamentos
+### TagsController
 
-apto 1-A até 10-B e o mesmo para o B
+O controlador `TagsController` oferece diversas operações para o gerenciamento de tags de garagem, incluindo operações CRUD e funcionalidades adicionais.
 
-## Estrutura de Pastas e Arquivos
+### 1. **Listar todas as tags**
 
-```plaintext
-GarageTagManagement
-├── Controllers
-│   └── TagsController.cs           # Controller para definir os endpoints
-├── Models
-│   └── Tag.cs                      # Modelo de dados para a tag
-├── Repositories
-│   └── TagRepository.cs            # Repositório em memória para armazenar as tags
-├── Services
-│   └── TagService.cs               # Serviço para lógica de negócios das tags
-├── Program.cs                      # Configuração inicial do projeto
-├── Startup.cs                      # Configurações de middleware e serviços
-└── GarageTagManagement.csproj      # Arquivo do projeto
-```
+- **Método:** `GET`
+- **Rota:** `/api/tags`
+- **Descrição:** Retorna todas as tags cadastradas. Retorna `NoContent` se não houver tags.
 
-## Descrição dos Arquivos
+### 2. **Obter tag por ID**
 
-1. **`Models/Tag.cs`**: Modelo de dados para uma tag, com propriedades como `Id`, `IdApartamento`, `TagsAtivas`, `TipoTag`, `ValidadeTag`, `IsActive`.
+- **Método:** `GET`
+- **Rota:** `/api/tags/{id}`
+- **Parâmetro:** `id` (int) - ID da tag
+- **Descrição:** Retorna uma tag específica pelo seu ID. Retorna `NotFound` se não encontrada.
 
-2. **`Repositories/TagRepository.cs`**: Classe para armazenar e manipular os dados em memória. Implementa operações CRUD para as tags.
+### 3. **Obter tag por ID do apartamento**
 
-3. **`Services/TagService.cs`**: Contém a lógica de negócios, como as regras de distribuição para moradores e visitantes, e verificação da validade da tag.
+- **Método:** `GET`
+- **Rota:** `/api/tags/apto/{idApartamento}`
+- **Parâmetro:** `idApartamento` (string) - ID do apartamento
+- **Descrição:** Retorna uma tag específica associada a um apartamento. Retorna `NotFound` se a tag não for encontrada.
 
-4. **`Controllers/TagsController.cs`**: Define as rotas e endpoints para gerenciar as tags:
+### 4. **Adicionar nova tag**
 
-   - **`GET /api/tags`**: Obter todas as tags.
-   - **`GET /api/tags/{id}`**: Obter uma tag específica pelo ID.
-   - **`GET /api/tags/apto/{id_apartamento}`**: Obter as tags de um apartamento específico.
-   - **`POST /api/tags`**: Criar uma nova tag.
-   - **`PUT /api/tags/{id}`**: Atualizar o status `is_active` ou `tipo_tag` de uma tag.
-   - **`DELETE /api/tags/{id}`**: Deletar uma tag.
+- **Método:** `POST`
+- **Rota:** `/api/tags`
+- **Descrição:** Adiciona uma nova tag ao sistema. Retorna `BadRequest` se a tag for inválida (nula) e `CreatedAtAction` com o novo ID após a criação.
 
-Com essa estrutura inicial, você pode focar na implementação da lógica e das rotas no `TagsController` e no `TagService`, garantindo que as regras sejam aplicadas ao atualizar ou criar tags.
+### 5. **Atualizar tag por ID**
+
+- **Método:** `PUT`
+- **Rota:** `/api/tags/{id}`
+- **Parâmetro:** `id` (int) - ID da tag
+- **Descrição:** Atualiza os dados de uma tag existente. Retorna `BadRequest` se a tag for nula e `NotFound` se a tag não existir.
+
+### 6. **Excluir tag por ID**
+
+- **Método:** `DELETE`
+- **Rota:** `/api/tags/{id}`
+- **Parâmetro:** `id` (int) - ID da tag
+- **Descrição:** Remove uma tag específica pelo seu ID. Retorna `NotFound` se a tag não for encontrada.
+
+### 7. **Alternar status ativo da tag**
+
+- **Método:** `PUT`
+- **Rota:** `/api/tags/{id}/toggle`
+- **Parâmetro:** `id` (int) - ID da tag
+- **Descrição:** Alterna o status ativo (`IsActive`) de uma tag. Retorna `NotFound` se a tag não for encontrada.
+
+### 8. **Verificar validade da tag por ID**
+
+- **Método:** `GET`
+- **Rota:** `/api/tags/{id}/isValid`
+- **Parâmetro:** `id` (int) - ID da tag
+- **Descrição:** Verifica se uma tag é válida. Retorna `NotFound` se a tag não for encontrada.
+
+### 9. **Verificar validade da tag por ID do apartamento**
+
+- **Método:** `GET`
+- **Rota:** `/api/tags/apto/{idApartamento}/isValid`
+- **Parâmetro:** `idApartamento` (string) - ID do apartamento
+- **Descrição:** Verifica se a tag de um apartamento é válida. Retorna `NotFound` se a tag não for encontrada.
+
+### 10. **Estender validade da tag**
+
+- **Método:** `PUT`
+- **Rota:** `/api/tags/{id}/toggleValid`
+- **Parâmetro:** `id` (int) - ID da tag
+- **Descrição:** Estende a validade (`ValidadeTag`) de uma tag em um ano, se ela tiver uma validade definida. Retorna `NotFound` se a tag não for encontrada.
+
+## Estrutura do Projeto
+
+- **Namespace:** `GarageTagManagement.Controllers`
+- **Modelo de Dados:** `Tag`
+- **Serviço:** `TagService`
+
+## Observações
+
+- Esta API utiliza o `Swagger` para documentação. Após iniciar o projeto, acesse `/swagger` para explorar os endpoints e testar as funcionalidades.
+- A implementação de regras de negócio, como a validação e alternância de status, é gerenciada pelo `TagService`.
+
+## Tecnologias Utilizadas
+
+- **Linguagem:** C#
+- **Framework:** ASP.NET Core
+- **Documentação:** Swagger
