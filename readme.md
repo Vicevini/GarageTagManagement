@@ -1,5 +1,15 @@
 # GarageTagManagement API
 
+## Projeto em Desenvolvimento - Side project 
+
+- [ ] Ajustando as rotas de Apartamento
+- [ ] Ajuste no repository de apartamento
+- [ ] Integração com o Banco de Dados
+- [ ] E-mails para eventos
+- [ ] Docker do banco de dados e backend
+- [ ] Frontend
+---
+
 ## Objetivo
 
 O objetivo do sistema **GarageTagManagement** é facilitar o controle e a distribuição de tags de garagem para moradores e visitantes de um condomínio, permitindo um gerenciamento mais eficiente do uso das vagas de estacionamento.
