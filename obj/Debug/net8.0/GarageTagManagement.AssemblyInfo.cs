@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GarageTagManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62b623728455d1fdfcb5ed87cbf15aee423901f1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5a143bdde4faea97b15ee645c2c359c14cf6143")]
 [assembly: System.Reflection.AssemblyProductAttribute("GarageTagManagement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GarageTagManagement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
