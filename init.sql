@@ -9,13 +9,13 @@ CREATE TABLE apartamentos (
 CREATE TABLE tags (
     id SERIAL PRIMARY KEY,
     apartamento_id INTEGER, -- Chave estrangeira para a tabela apartamentos
-    is_active BOOLEAN DEFAULT TRUE,
-    valid_to DATE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    tipo_tag VARCHAR(50) NOT NULL CHECK (tipo_tag IN ('morador', 'visitante')), -- Tipos 'morador' ou 'visitante'
+    validade_tag DATE NOT NULL, -- Data de validade da tag
+    is_active BOOLEAN DEFAULT TRUE, -- Indica se a tag está ativa ou não
     FOREIGN KEY (apartamento_id) REFERENCES apartamentos(id) ON DELETE CASCADE
 );
 
--- Criação de uma tabela para os usuários
+-- Criação da tabela de usuários
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     matricula INTEGER UNIQUE NOT NULL,
@@ -54,7 +54,7 @@ FOR EACH ROW
 WHEN (NEW.matricula IS NULL)
 EXECUTE FUNCTION gerar_matricula();
 
--- Criando uma tabela de relacionamento entre apartamentos e tags
+-- Criação da tabela de relacionamento entre apartamentos e tags (não utilizando arrays)
 CREATE TABLE apartamento_tags (
     apartamento_id INTEGER NOT NULL,
     tag_id INTEGER NOT NULL,
@@ -63,7 +63,8 @@ CREATE TABLE apartamento_tags (
     FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
 );
 
-INSERT INTO apartamentos (nome, tags_ativas) 
+-- Inserção de dados na tabela de apartamentos
+INSERT INTO apartamentos (nome, tags_ativas)
 VALUES
 ('Apartamento 101', ARRAY[1, 2]),
 ('Apartamento 102', ARRAY[2, 3]),
@@ -71,15 +72,28 @@ VALUES
 ('Apartamento 104', ARRAY[1]),
 ('Apartamento 105', ARRAY[2]);
 
-INSERT INTO tags (apartamento_id, is_active, valid_to)
+-- Inserção de dados na tabela de tags
+INSERT INTO tags (apartamento_id, tipo_tag, validade_tag, is_active)
 VALUES
-(1, TRUE, '2024-12-31'),
-(2, TRUE, '2024-12-31'),
-(3, FALSE, '2024-12-31'),
-(4, TRUE, '2025-01-31'),
-(5, TRUE, '2024-11-30');
+(1, 'morador', '2024-12-31', TRUE),
+(2, 'visitante', '2024-12-31', TRUE),
+(3, 'morador', '2024-11-30', FALSE),
+(4, 'visitante', '2025-01-31', TRUE),
+(5, 'morador', '2024-11-30', TRUE);
 
--- Inserção de usuários
+-- Inserção de dados na tabela apartamento_tags (relacionamento entre apartamentos e tags)
+INSERT INTO apartamento_tags (apartamento_id, tag_id)
+VALUES
+(1, 1), -- Apartamento 101 com Tag 'morador'
+(1, 2), -- Apartamento 101 com Tag 'visitante'
+(2, 2), -- Apartamento 102 com Tag 'visitante'
+(2, 3), -- Apartamento 102 com Tag 'morador'
+(3, 1), -- Apartamento 103 com Tag 'morador'
+(3, 3), -- Apartamento 103 com Tag 'morador'
+(4, 1), -- Apartamento 104 com Tag 'morador'
+(5, 2); -- Apartamento 105 com Tag 'visitante'
+
+-- Inserção de dados na tabela de usuários
 INSERT INTO usuarios (cargo, nome, senha)
 VALUES
 ('admin', 'Carlos Silva', 'senha123'),
@@ -87,17 +101,3 @@ VALUES
 ('morador', 'João Souza', 'senha123'),
 ('morador', 'Ana Costa', 'senha123'),
 ('sindico', 'Paulo Mendes', 'senha123');
-
-INSERT INTO apartamento_tags (apartamento_id, tag_id)
-VALUES
-(1, 1),
-(1, 2),
-(2, 2),
-(2, 3),
-(3, 1),
-(3, 3),
-(4, 1),
-(5, 2);
-
-
-
