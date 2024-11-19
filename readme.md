@@ -135,3 +135,6 @@ O controlador `TagsController` oferece diversas operações para o gerenciamento
 
 - **Evento:** `TagValidityExpiredVisitor`
 - **Descrição:** Disparado quando a validade de uma tag de visitante expira. Mensagens diferentes para síndicos e moradores.
+
+- **Evento:** `ExpiresToday`
+- **Descrição:** Disparado quando uma tag está prestes a expirar. Mensagens diferentes para síndicos e moradores.
