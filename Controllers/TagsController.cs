@@ -14,6 +14,29 @@ namespace GarageTagManagement.Controllers
         public TagsController(TagService tagService)
         {
             _tagService = tagService;
+
+            _tagService.TagAdded += OnTagAdded;
+
+            _tagService.TagUpdated += onTagUpdated;
+
+            _tagService.TagDeleted += OnTagDeleted;
+
+        }
+
+        private void OnTagAdded(object? sender, TagAddedEventArgs e)
+        {
+
+            Console.WriteLine($"Tag adicionada: ID={e.TagId}, Apartamento={e.IdApartamento}, Validade={e.ValidadeTag}");
+        }
+
+        private void onTagUpdated(object? sender, TagUpdatedEventArgs e)
+        {
+            Console.WriteLine($"Tag atualizada: ID={e.TagId}, Apartamento={e.IdApartamento}, Validade={e.ValidadeTag}");
+        }
+
+        private void OnTagDeleted(object? sender, TagDeletedEventArgs e)
+        {
+            Console.WriteLine($"Tag deletada: ID={e.TagId}");
         }
 
         // GET: api/tags
@@ -23,7 +46,7 @@ namespace GarageTagManagement.Controllers
             var tags = _tagService.GetAll();
             if (tags == null || tags.Count() == 0)
             {
-                return NoContent(); 
+                return NoContent();
             }
             return Ok(tags);
         }
@@ -35,9 +58,9 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetById(id);
             if (tag == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
-            return Ok(tag); 
+            return Ok(tag);
         }
 
         // GET: api/tags/apto/{idApartamento}
@@ -47,9 +70,9 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetByApartment(idApartamento);
             if (tag == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
-            return Ok(tag); 
+            return Ok(tag);
         }
 
         // POST: api/tags
@@ -58,11 +81,11 @@ namespace GarageTagManagement.Controllers
         {
             if (tag == null)
             {
-                return BadRequest("Tag não pode ser nula."); 
+                return BadRequest("Tag não pode ser nula.");
             }
 
             _tagService.Add(tag);
-            return CreatedAtAction(nameof(Get), new { id = tag.Id }, tag); 
+            return CreatedAtAction(nameof(Get), new { id = tag.Id }, tag);
         }
 
         // PUT: api/tags/{id}
@@ -71,19 +94,19 @@ namespace GarageTagManagement.Controllers
         {
             if (tag == null)
             {
-                return BadRequest("Tag não pode ser nula."); 
+                return BadRequest("Tag não pode ser nula.");
             }
 
             var existingTag = _tagService.GetById(id);
             if (existingTag == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
-            tag.Id = id; 
+            tag.Id = id;
             _tagService.Update(tag);
 
-            return Ok(tag); 
+            return Ok(tag);
         }
 
         // DELETE: api/tags/{id}
@@ -97,7 +120,7 @@ namespace GarageTagManagement.Controllers
             }
 
             _tagService.Delete(id);
-            return NoContent(); 
+            return NoContent();
         }
 
         // PUT: api/tags/{id}/toggle
@@ -107,13 +130,13 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetById(id);
             if (tag == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             tag.IsActive = !tag.IsActive;
             _tagService.Update(tag);
 
-            return Ok(tag); 
+            return Ok(tag);
         }
 
         // GET: api/tags/{id}/isValid
@@ -123,10 +146,10 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetById(id);
             if (tag == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
-            return Ok(_tagService.IsTagValid(tag)); 
+            return Ok(_tagService.IsTagValid(tag));
         }
 
         // GET: api/tags/apto/{idApartamento}/isValid
@@ -136,10 +159,10 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetByApartment(idApartamento);
             if (tag == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
-            return Ok(_tagService.IsTagValid(tag)); 
+            return Ok(_tagService.IsTagValid(tag));
         }
 
         // PUT: api/tags/{id}/toggleValid 
@@ -149,7 +172,7 @@ namespace GarageTagManagement.Controllers
             var tag = _tagService.GetById(id);
             if (tag == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             if (tag.ValidadeTag.HasValue)
@@ -158,7 +181,7 @@ namespace GarageTagManagement.Controllers
             }
             _tagService.Update(tag);
 
-            return Ok(tag); 
+            return Ok(tag);
         }
     }
 }
