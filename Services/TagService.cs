@@ -14,7 +14,7 @@ namespace GarageTagManagement.Services
         public TagAddedEventArgs(int tagId, string apartmentId, DateTime validadeTag)
         {
             TagId = tagId;
-            IdApartamento = apartmentId;
+            IdApartamento = apartmentId.ToString();
             ValidadeTag = validadeTag;
         }
 
@@ -44,6 +44,99 @@ namespace GarageTagManagement.Services
         }
     }
 
+    public class NewApartamentRegisteredEventArgs : EventArgs
+    {
+        public string IdApartamento { get; }
+
+        public NewApartamentRegisteredEventArgs(string idApartamento)
+        {
+            IdApartamento = idApartamento;
+        }
+    }
+
+    public class NewTagCreatedEventArgs : EventArgs
+    {
+        public Tag Tag { get; }
+
+        public NewTagCreatedEventArgs(Tag tag)
+        {
+            Tag = tag;
+        }
+    }
+
+    public class NewVisitorTagCreatedEventArgs : EventArgs
+    {
+        public Tag Tag { get; }
+
+        public NewVisitorTagCreatedEventArgs(Tag tag)
+        {
+            Tag = tag;
+        }
+    }
+
+    public class TagDeactivatedEventArgs : EventArgs
+    {
+        public int TagId { get; }
+
+        public TagDeactivatedEventArgs(int tagId)
+        {
+            TagId = tagId;
+        }
+    }
+
+    public class VisitorTagDeactivatedEventArgs : EventArgs
+    {
+        public int TagId { get; }
+
+        public VisitorTagDeactivatedEventArgs(int tagId)
+        {
+            TagId = tagId;
+        }
+    }
+
+    public class TagValidadeExtendedEventArgs : EventArgs
+    {
+        public int TagId { get; }
+        public DateTime ValidadeTag { get; }
+
+        public TagValidadeExtendedEventArgs(int tagId, DateTime validadeTag)
+        {
+            TagId = tagId;
+            ValidadeTag = validadeTag;
+        }
+    }
+
+    public class VisitorTagValidadeExtendedEventArgs : EventArgs
+    {
+        public int TagId { get; }
+        public DateTime ValidadeTag { get; }
+
+        public VisitorTagValidadeExtendedEventArgs(int tagId, DateTime validadeTag)
+        {
+            TagId = tagId;
+            ValidadeTag = validadeTag;
+        }
+    }
+
+    public class TagValidadeExpiredEventArgs : EventArgs
+    {
+        public int TagId { get; }
+
+        public TagValidadeExpiredEventArgs(int tagId)
+        {
+            TagId = tagId;
+        }
+    }
+
+    public class VisitorTagValidadeExpiredEventArgs : EventArgs
+    {
+        public int TagId { get; }
+
+        public VisitorTagValidadeExpiredEventArgs(int tagId)
+        {
+            TagId = tagId;
+        }
+    }
     
 
     public class TagService
@@ -55,6 +148,24 @@ namespace GarageTagManagement.Services
         public event EventHandler<TagUpdatedEventArgs>? TagUpdated;
 
         public event EventHandler<TagDeletedEventArgs>? TagDeleted;
+
+        public event EventHandler<NewApartamentRegisteredEventArgs>? NewApartamentRegistered;
+
+        public event EventHandler<NewTagCreatedEventArgs>? NewTagCreated;
+
+        public event EventHandler<NewVisitorTagCreatedEventArgs>? NewVisitorTagCreated;
+
+        public event EventHandler<TagDeactivatedEventArgs>? TagDeactivated;
+
+        public event EventHandler<VisitorTagDeactivatedEventArgs>? VisitorTagDeactivated;
+
+        public event EventHandler<TagValidadeExtendedEventArgs>? TagValidadeExtended;
+
+        public event EventHandler<VisitorTagValidadeExtendedEventArgs>? VisitorTagValidadeExtended;
+
+        public event EventHandler<TagValidadeExpiredEventArgs>? TagValidadeExpired;
+
+        public event EventHandler<VisitorTagValidadeExpiredEventArgs>? VisitorTagValidadeExpired;
 
         public TagService(TagRepository tagRepository)
         {
@@ -71,7 +182,7 @@ namespace GarageTagManagement.Services
             return _tagRepository.GetById(id);
         }
 
-        public Tag GetByApartment(string id)
+        public Tag GetByApartment(int id)
         {
             return _tagRepository.GetByApartment(id);
         }
@@ -87,7 +198,10 @@ namespace GarageTagManagement.Services
 
             if (tag.IdApartamento != null)
             {
-                OnTagAdded(new TagAddedEventArgs(tag.Id, tag.IdApartamento, tag.ValidadeTag.Value));
+                if (tag.IdApartamento != null)
+                {
+                    OnTagAdded(new TagAddedEventArgs(tag.Id, tag.IdApartamento?.ToString() ?? string.Empty, tag.ValidadeTag.Value));
+                }
             }
         }
 
@@ -99,7 +213,10 @@ namespace GarageTagManagement.Services
             {
                 if (tag.ValidadeTag.HasValue)
                 {
-                    onTagUpdated(new TagUpdatedEventArgs(tag.Id, tag.IdApartamento, tag.ValidadeTag.Value));
+                    if (tag.IdApartamento != null)
+                    {
+                        onTagUpdated(new TagUpdatedEventArgs(tag.Id, tag.IdApartamento?.ToString() ?? string.Empty, tag.ValidadeTag.Value));
+                    }
                 }
             }
         }
@@ -123,7 +240,7 @@ namespace GarageTagManagement.Services
             return IsTagValid(tag);
         }
 
-        public bool IsTagValidByApartment(string id)
+        public bool IsTagValidByApartment(int id)
         {
             var tag = _tagRepository.GetByApartment(id);
             return IsTagValid(tag);
@@ -160,5 +277,51 @@ namespace GarageTagManagement.Services
         {
             TagDeleted?.Invoke(this, e);
         }
+
+        protected virtual void OnNewApartamentRegistered(NewApartamentRegisteredEventArgs e)
+        {
+            NewApartamentRegistered?.Invoke(this, e);
+        }
+
+        protected virtual void OnNewTagCreated(NewTagCreatedEventArgs e)
+        {
+            NewTagCreated?.Invoke(this, e);
+        }
+
+        protected virtual void OnNewVisitorTagCreated(NewVisitorTagCreatedEventArgs e)
+        {
+            NewVisitorTagCreated?.Invoke(this, e);
+        }
+
+        protected virtual void OnTagDeactivated(TagDeactivatedEventArgs e)
+        {
+            TagDeactivated?.Invoke(this, e);
+        }
+
+        protected virtual void OnVisitorTagDeactivated(VisitorTagDeactivatedEventArgs e)
+        {
+            VisitorTagDeactivated?.Invoke(this, e);
+        }
+
+        protected virtual void OnTagValidadeExtended(TagValidadeExtendedEventArgs e)
+        {
+            TagValidadeExtended?.Invoke(this, e);
+        }
+
+        protected virtual void OnVisitorTagValidadeExtended(VisitorTagValidadeExtendedEventArgs e)
+        {
+            VisitorTagValidadeExtended?.Invoke(this, e);
+        }
+
+        protected virtual void OnTagValidadeExpired(TagValidadeExpiredEventArgs e)
+        {
+            TagValidadeExpired?.Invoke(this, e);
+        }
+
+        protected virtual void OnVisitorTagValidadeExpired(VisitorTagValidadeExpiredEventArgs e)
+        {
+            VisitorTagValidadeExpired?.Invoke(this, e);
+        }
+        
     }
 }

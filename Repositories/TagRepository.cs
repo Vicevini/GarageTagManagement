@@ -16,8 +16,7 @@ namespace GarageTagManagement.Repositories
             _tags.Add(new Tag
             {
                 Id = 1,
-                IdApartamento = "1",
-                TagsAtivas = 1,
+                IdApartamento = 1,
                 TipoTag = "Morador",
                 ValidadeTag = DateTime.Now.AddYears(1),
                 IsActive = true
@@ -26,8 +25,7 @@ namespace GarageTagManagement.Repositories
             _tags.Add(new Tag
             {
                 Id = 2,
-                IdApartamento = "2",
-                TagsAtivas = 2,
+                IdApartamento = 2,
                 TipoTag = "Visitante",
                 ValidadeTag = DateTime.Now.AddHours(48),
                 IsActive = true
@@ -44,7 +42,7 @@ namespace GarageTagManagement.Repositories
             return _tags.FirstOrDefault(t => t.Id == id)!;
         }
 
-        public Tag GetByApartment(string id)
+        public Tag GetByApartment(int id)
         {
             return _tags.FirstOrDefault(t => t.IdApartamento == id)!;
         }
@@ -61,7 +59,6 @@ namespace GarageTagManagement.Repositories
             if (existingTag != null)
             {
                 existingTag.IdApartamento = tag.IdApartamento;
-                existingTag.TagsAtivas = tag.TagsAtivas;
                 existingTag.TipoTag = tag.TipoTag;
                 existingTag.ValidadeTag = tag.ValidadeTag;
                 existingTag.IsActive = tag.IsActive;

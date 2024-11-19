@@ -67,7 +67,11 @@ namespace GarageTagManagement.Controllers
         [HttpGet("apto/{idApartamento}")]
         public ActionResult<Tag> GetByApartment(string idApartamento)
         {
-            var tag = _tagService.GetByApartment(idApartamento);
+            if (!int.TryParse(idApartamento, out int apartmentId))
+            {
+                return BadRequest("Invalid apartment ID.");
+            }
+            var tag = _tagService.GetByApartment(apartmentId);
             if (tag == null)
             {
                 return NotFound();
@@ -156,7 +160,11 @@ namespace GarageTagManagement.Controllers
         [HttpGet("apto/{idApartamento}/isValid")]
         public IActionResult IsTagValidByApartment(string idApartamento)
         {
-            var tag = _tagService.GetByApartment(idApartamento);
+            if (!int.TryParse(idApartamento, out int apartmentId))
+            {
+                return BadRequest("Invalid apartment ID.");
+            }
+            var tag = _tagService.GetByApartment(apartmentId);
             if (tag == null)
             {
                 return NotFound();
