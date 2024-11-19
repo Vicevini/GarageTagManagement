@@ -54,8 +54,50 @@ FOR EACH ROW
 WHEN (NEW.matricula IS NULL)
 EXECUTE FUNCTION gerar_matricula();
 
--- Inserção de uma chave estrangeira para tags ativas em apartamentos
-ALTER TABLE apartamentos
-ADD CONSTRAINT fk_tags_ativas
-FOREIGN KEY (tags_ativas)
-REFERENCES tags(id) ON DELETE SET NULL;
+-- Criando uma tabela de relacionamento entre apartamentos e tags
+CREATE TABLE apartamento_tags (
+    apartamento_id INTEGER NOT NULL,
+    tag_id INTEGER NOT NULL,
+    PRIMARY KEY (apartamento_id, tag_id),
+    FOREIGN KEY (apartamento_id) REFERENCES apartamentos(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);
+
+INSERT INTO apartamentos (nome, tags_ativas) 
+VALUES
+('Apartamento 101', ARRAY[1, 2]),
+('Apartamento 102', ARRAY[2, 3]),
+('Apartamento 103', ARRAY[1, 3]),
+('Apartamento 104', ARRAY[1]),
+('Apartamento 105', ARRAY[2]);
+
+INSERT INTO tags (apartamento_id, is_active, valid_to)
+VALUES
+(1, TRUE, '2024-12-31'),
+(2, TRUE, '2024-12-31'),
+(3, FALSE, '2024-12-31'),
+(4, TRUE, '2025-01-31'),
+(5, TRUE, '2024-11-30');
+
+-- Inserção de usuários
+INSERT INTO usuarios (cargo, nome, senha)
+VALUES
+('admin', 'Carlos Silva', 'senha123'),
+('sindico', 'Maria Oliveira', 'senha123'),
+('morador', 'João Souza', 'senha123'),
+('morador', 'Ana Costa', 'senha123'),
+('sindico', 'Paulo Mendes', 'senha123');
+
+INSERT INTO apartamento_tags (apartamento_id, tag_id)
+VALUES
+(1, 1),
+(1, 2),
+(2, 2),
+(2, 3),
+(3, 1),
+(3, 3),
+(4, 1),
+(5, 2);
+
+
+
