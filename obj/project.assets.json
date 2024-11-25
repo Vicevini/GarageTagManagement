@@ -613,11 +613,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vinicius.oliveira\\Documents\\projetos\\aspAPI\\GarageTagManagement\\GarageTagManagement.csproj",
+      "projectUniqueName": "C:\\Users\\vinicius.oliveira\\Documents\\projetos\\estudos\\aspAPI\\GarageTagManagement\\GarageTagManagement.csproj",
       "projectName": "GarageTagManagement",
-      "projectPath": "C:\\Users\\vinicius.oliveira\\Documents\\projetos\\aspAPI\\GarageTagManagement\\GarageTagManagement.csproj",
+      "projectPath": "C:\\Users\\vinicius.oliveira\\Documents\\projetos\\estudos\\aspAPI\\GarageTagManagement\\GarageTagManagement.csproj",
       "packagesPath": "C:\\Users\\vinicius.oliveira\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vinicius.oliveira\\Documents\\projetos\\aspAPI\\GarageTagManagement\\obj\\",
+      "outputPath": "C:\\Users\\vinicius.oliveira\\Documents\\projetos\\estudos\\aspAPI\\GarageTagManagement\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

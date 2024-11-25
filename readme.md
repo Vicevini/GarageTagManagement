@@ -1,6 +1,6 @@
 # GarageTagManagement API
 
-## Projeto em Desenvolvimento - Side project 
+## Projeto em Desenvolvimento - Side project
 
 - [ ] Ajustando as rotas de Apartamento
 - [ ] Ajuste no repository de apartamento
@@ -8,6 +8,7 @@
 - [ ] E-mails para eventos
 - [ ] Docker do banco de dados e backend
 - [ ] Frontend
+
 ---
 
 ## Objetivo
