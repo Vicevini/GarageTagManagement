@@ -36,3 +36,14 @@ C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\bin\Deb
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\obj\Debug\net8.0\staticwebassets\msbuild.GarageTagManagement.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 C:\Users\vinicius.oliveira\Documents\projetos\aspAPI\GarageTagManagement\bin\Debug\net8.0\RabbitMQ.Client.dll
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.csproj.AssemblyReference.cache
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.AssemblyInfoInputs.cache
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.AssemblyInfo.cs
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.csproj.CoreCompileInputs.cache
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.sourcelink.json
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.dll
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\refint\GarageTagManagement.dll
+C:\Users\vinicius.oliveira\Documents\projetos\estudos\aspAPI\GarageTagManagement\obj\Debug\net8.0\GarageTagManagement.pdb
